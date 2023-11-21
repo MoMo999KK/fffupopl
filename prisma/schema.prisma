@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+model Product{
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  images        Image []    
+}
+model Image{
+    id              String @id @default(auto()) @map("_id") @db.ObjectId
+
+
+  productId String?  @db.ObjectId
+             product Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+             public_id  String?
+             url String?
+
+
+             
+
+
+
+
+
+}
+model ALlNames{
+      id              String @id @default(auto()) @map("_id") @db.ObjectId
+      name String?
+
+
+}
